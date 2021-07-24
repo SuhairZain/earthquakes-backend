@@ -45,7 +45,7 @@ export const execute = async (params: IGetEarthQuakesParams) => {
     };
   }
 
-  const earthQuakes = await EarthQuake.findAll({
+  const { rows: earthQuakes, count } = await EarthQuake.findAndCountAll({
     logging: false,
     where,
     limit: take,
@@ -53,9 +53,12 @@ export const execute = async (params: IGetEarthQuakesParams) => {
     order: sortBy && sortDirection && [[sortBy, sortDirection]],
   });
 
-  return earthQuakes.map((e) =>
-    outputMapper(e.toJSON() as IEarthQuakeDbInstance)
-  );
+  return {
+    totalCount: count,
+    earthQuakes: earthQuakes.map((e) =>
+      outputMapper(e.toJSON() as IEarthQuakeDbInstance)
+    ),
+  };
 };
 
 const outputMapper = (earthQuake: IEarthQuakeDbInstance): IEarthQuake => {

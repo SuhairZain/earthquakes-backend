@@ -9,13 +9,20 @@ describe("WHEN earthQuakesController", () => {
   describe("WHEN getEarthQuakes", () => {
     describe("WHEN called without any params", () => {
       let earthQuakes: IEarthQuake[];
+      let totalCount: number;
 
       beforeAll(async () => {
-        earthQuakes = (await getEarthQuakes({})).body;
+        const response = await getEarthQuakes({});
+        earthQuakes = response.body;
+        totalCount = response.headers["x-total-count"];
       });
 
       it("SHOULD return 10 instances", () => {
         expect(earthQuakes).toHaveLength(10);
+      });
+
+      it("SHOULD return the total number in the header", () => {
+        expect(totalCount).toBe("72948");
       });
     });
 

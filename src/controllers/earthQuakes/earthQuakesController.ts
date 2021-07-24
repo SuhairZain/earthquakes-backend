@@ -37,7 +37,7 @@ export const getEarthQuakes = async (req, res) => {
       ? _inputSortDirection
       : "ASC";
 
-  const earthQuakes = await getEarthQuakesQuery.execute({
+  const { earthQuakes, totalCount } = await getEarthQuakesQuery.execute({
     minSignificance,
     minMagnitude,
     skip,
@@ -48,5 +48,6 @@ export const getEarthQuakes = async (req, res) => {
     sortBy,
     sortDirection,
   });
-  res.json(earthQuakes);
+
+  res.set("X-Total-Count", totalCount).json(earthQuakes);
 };
