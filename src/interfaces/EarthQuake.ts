@@ -4,6 +4,7 @@ export interface IEarthQuake {
   magnitude: number;
   time: string;
   title: string;
+  info: string;
 }
 
 export interface IEarthQuakeDbInstance

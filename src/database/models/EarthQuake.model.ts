@@ -17,4 +17,7 @@ export const getColumns = () => ({
   title: {
     type: DataTypes.STRING,
   },
+  info: {
+    type: DataTypes.STRING,
+  },
 });
