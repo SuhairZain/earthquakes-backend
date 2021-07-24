@@ -25,15 +25,18 @@ export const getEarthQuakes = async (req, res) => {
   const skip = parseToIntIfValid(skipStr, 0);
   const take = parseToIntIfValid(takeStr, 10);
 
+  const lowerCasedSortBy = _inputSortBy?.toLowerCase();
+  const upperCasedSortDirection = _inputSortDirection?.toUpperCase();
+
   const sortBy =
-    _inputSortBy === "significance"
+    lowerCasedSortBy === "significance"
       ? "sig"
-      : _inputSortBy === "magnitude"
+      : lowerCasedSortBy === "magnitude"
       ? "magnitude"
       : undefined;
 
   const sortDirection =
-    _inputSortDirection === "ASC" || _inputSortDirection === "DESC"
+    upperCasedSortDirection === "ASC" || upperCasedSortDirection === "DESC"
       ? _inputSortDirection
       : "ASC";
 
